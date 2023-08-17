@@ -1,10 +1,8 @@
 package com.picpaysimplified.domain.user;
 
+import com.picpaysimplified.dto.UserDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -12,6 +10,7 @@ import java.math.BigDecimal;
 @Table(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class User {
@@ -35,4 +34,16 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "user_type")
     private UserType user;
+
+
+    ///Como eu implementei um record UserDTO eu vo precisar criar um construtor para ele
+    public User(UserDTO userDTO) {
+        this.firstName = userDTO.firstName();
+        this.lastName = userDTO.lastName();
+        this.document = userDTO.document();
+        this.email = userDTO.email();
+        this.password = userDTO.password();
+        this.balance = userDTO.balance();
+        this.user = userDTO.userType();
+    }
 }
